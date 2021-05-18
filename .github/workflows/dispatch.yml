@@ -1,5 +1,4 @@
 name: Dispatch new changes
-if: hashFiles('changes.json') != ''
 on:
   release:
     types: [published]
@@ -13,6 +12,7 @@ jobs:
           NPM_AUTH_TOKEN: ${{ secrets.NPM_AUTH_TOKEN }}
   dispatch:
     runs-on: ubuntu-latest
+    if: hashFiles('changes.json') != '' 
     steps:
       - uses: actions/checkout@v2
       - name: Read changes.json
