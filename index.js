@@ -1,5 +1,5 @@
 export class TestClass {
-    testProp = 2
+    testProp = 3
 }
 // export class FunnyClass {
 //     testProp = 2
