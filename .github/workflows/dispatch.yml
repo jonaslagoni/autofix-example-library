@@ -29,5 +29,5 @@ jobs:
       - name: Dispatch new changes in library ocurred 
         if: steps.check_files.outputs.files_exists == 'true'
         run: |
-          curl -XPOST -u "${{ secrets.PAT_USERNAME}}:${{secrets.PAT_TOKEN}}" -H "Accept: application/vnd.github.everest-preview+json" -H "Content-Type: application/json" https://api.github.com/repos/jonaslagoni/autofix-example-user/actions/workflows/dispatch.yml/dispatches --data '{"ref": "master", "inputs": {changes: ${{ steps.changes.outputs.content }}}}'
+          curl -XPOST -u "${{ secrets.PAT_USERNAME}}:${{secrets.PAT_TOKEN}}" -H "Accept: application/vnd.github.everest-preview+json" -H "Content-Type: application/json" https://api.github.com/repos/jonaslagoni/autofix-example-user/actions/workflows/dispatch.yml/dispatches --data '{"ref": "master", "inputs": {"changes": ${{ steps.changes.outputs.content }} }}'
           
