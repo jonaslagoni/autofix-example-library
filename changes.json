@@ -1,5 +1,1 @@
-{
-    "file": "@lagoni/example-library",
-    "currentName": "TestClass",
-    "newName": "FunnyClass"
-}
+{ "file": "@lagoni/example-library", "currentName": "TestClass", "newName": "FunnyClass" }
