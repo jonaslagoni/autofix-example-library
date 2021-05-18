@@ -1,0 +1,26 @@
+name: Dispatch new changes
+if: hashFiles('changes.json') != ''
+on:
+  release:
+    types: [published]
+jobs:
+  release: 
+    runs-on: ubuntu-latest
+    steps: 
+      - uses: mikeal/merge-release@master
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          NPM_AUTH_TOKEN: ${{ secrets.NPM_AUTH_TOKEN }}
+  dispatch:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - name: Read changes.json
+        id: changes
+        uses: juliangruber/read-file-action@v1
+        with:
+          path: ./changes.json
+      - name: Dispatch new changes in library ocurred 
+        run: |
+          curl -XPOST -u "${{ secrets.PAT_USERNAME}}:${{secrets.PAT_TOKEN}}" -H "Accept: application/vnd.github.everest-preview+json" -H "Content-Type: application/json" https://api.github.com/repos/jonaslagoni/autofix-example-user/actions/workflows/dispatch.yaml/dispatches --data '{"ref": "master", "inputs": {changes: ${{ steps.package.outputs.content }}}}'
+          
