@@ -1,5 +1,5 @@
 {
-    "file": "external/module",
+    "file": "@lagoni/example-library",
     "currentName": "TestClass",
     "newName": "FunnyClass"
 }
