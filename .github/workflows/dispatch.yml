@@ -1,7 +1,6 @@
 name: Dispatch new changes
 on:
-  release:
-    types: [published]
+  push:
 jobs:
   release: 
     runs-on: ubuntu-latest
@@ -14,20 +13,7 @@ jobs:
   dispatch:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v2
-      - name: Check file existence
-        id: check_files
-        uses: andstor/file-existence-action@v1
-        with:
-          files: "changes.json"
-      - name: Read changes.json
-        if: steps.check_files.outputs.files_exists == 'true'
-        id: changes
-        uses: juliangruber/read-file-action@v1
-        with:
-          path: ./changes.json
       - name: Dispatch new changes in library ocurred 
-        if: steps.check_files.outputs.files_exists == 'true'
         run: |
-          curl -XPOST -u "${{ secrets.PAT_USERNAME}}:${{secrets.PAT_TOKEN}}" -H "Accept: application/vnd.github.everest-preview+json" -H "Content-Type: application/json" https://api.github.com/repos/jonaslagoni/autofix-example-user/actions/workflows/dispatch.yml/dispatches --data '{"ref": "master", "inputs": {"changes": ${{ steps.changes.outputs.content }} }}'
+          curl -XPOST -u "${{ secrets.PAT_USERNAME}}:${{secrets.PAT_TOKEN}}" -H "Accept: application/vnd.github.everest-preview+json" -H "Content-Type: application/json" https://api.github.com/repos/jonaslagoni/autofix-example-user/actions/workflows/dispatch.yml/dispatches --data '{"ref": "master"}'
           
