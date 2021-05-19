@@ -1,3 +1,3 @@
-export class FunnyClass {
+export class FunnyTestClass {
     testProp = 3
 }
